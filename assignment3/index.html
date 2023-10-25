@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .container {
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 15px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+          background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(128,197,224,1) 0%);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="email"], input[type="tel"], input[type="password"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .error-message {
+            color: red;
+        }
+
+        button{
+            color:mediumslateblue;
+            background-color: rgb(126, 155, 216);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Registration</h2>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+            </div>
+            <div class="error-message" id="error"></div>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            var username = document.getElementById("username").value.trim();
+            var email = document.getElementById("email").value.trim();
+            var phoneNumber = document.getElementById("phoneNumber").value.trim();
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            var error = "";
+
+            // Check for empty fields
+            if (username === "" || email === "" || phoneNumber === "" || password === "" || confirmPassword === "") {
+                error = "All fields are required.";
+            }
+            else {
+                // Check phone number
+                if (!/^\d{10}$/.test(phoneNumber)) {
+                    error = "Phone number must be 10 digits numeric.";
+                }
+
+                // Check password
+                if (!/(?=.[A-Z])(?=.\d)(?=.*[@$#&]).{7,}/.test(password)) {
+                    error = "Password must be at least 7 characters long and contain at least one capital letter, one digit, and one special character (@, $, #, or &).";
+                }
+
+                // Check email
+                if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+                    error = "Invalid email address.";
+                }
+
+                // Check password match
+                if (password !== confirmPassword) {
+                    error = "Passwords do not match.";
+                }
+            }
+
+            if (error !== "") {
+                document.getElementById("error").textContent = error;
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
