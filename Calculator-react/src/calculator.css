@@ -1,0 +1,45 @@
+import React, { Component } from 'react';
+import './Calculator.css';
+
+class Calculator extends Component {
+  constructor() {
+    super();
+    this.state = {
+      display: '0',
+      currentValue: null,
+      operator: null,
+      waitingForOperand: false,
+    };
+  }
+
+  handleDigitClick = (digit) => {
+    const { display, waitingForOperand } = this.state;
+
+    if (waitingForOperand) {
+      this.setState({
+        display: digit,
+        waitingForOperand: false,
+      });
+    } else {
+      this.setState({
+        display: display === '0' ? digit : display + digit,
+      });
+    }
+  };
+
+  // Implement other calculator methods (handleOperatorClick, calculateResult, handleEqualsClick, handleClearClick) similar to the previous example.
+
+  render() {
+    return (
+      <div className="calculator">
+        <div className="display">{this.state.display}</div>
+        <div className="buttons">
+          {/* Add buttons and event handlers as in your HTML */}
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Calculator;
+
